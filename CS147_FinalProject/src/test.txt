@@ -1,0 +1,69 @@
+#include <Arduino.h>
+#include <TFT_eSPI.h>
+#include <DFRobot_DHT20.h>
+
+#define UV_PIN 36
+#define MOISTURE_PIN 38
+// #define BUTTON_PIN 2
+#define PHOTOCELL_PIN 2
+
+
+const int dry = 2600;
+const int wet = 1000;
+
+
+DFRobot_DHT20 dht20;
+TFT_eSPI tft = TFT_eSPI();
+
+void setup() 
+{
+  Serial.begin(115200);
+
+  pinMode(UV_PIN,INPUT);
+  pinMode(MOISTURE_PIN,INPUT);
+  // pinMode(BUTTON_PIN, INPUT);
+  pinMode(PHOTOCELL_PIN,INPUT);
+
+  //Initialize screen
+  tft.init();
+  tft.fillScreen(TFT_BLACK);
+  tft.setRotation(3);
+  tft.setTextColor(TFT_WHITE, TFT_BLACK);
+
+  //Initialize Temp/Humi sensor
+  while(dht20.begin()){
+    Serial.println("Initialize DHT20 failed");
+    delay(1000);
+  }
+  Serial.println("DHT20 initialized");
+}
+void loop() 
+{
+  Serial.println("---------------------");
+  // Photocell
+  int lightRead;
+  lightRead = analogRead(PHOTOCELL_PIN);
+  Serial.print("photocell reading = ");
+  Serial.print(lightRead);
+  Serial.println("");
+
+
+  // Moisture sensor 
+  int MoistureSensorRaw = analogRead(MOISTURE_PIN); // range of 2530(dry) to 3100(wet)
+  int HumidityPercentage = map(MoistureSensorRaw, wet, dry, 100, 0); // range of 0%(dry) to 100%(wet)
+
+  Serial.print("moisture raw = ");
+  Serial.print(MoistureSensorRaw);
+  Serial.println("");
+  Serial.print("Humidity Percentage = ");
+  Serial.print(HumidityPercentage);
+  Serial.println(" %");
+
+  // Temp/humi sensor
+  float temperature = dht20.getTemperature();
+  float humidity = dht20.getHumidity()*100;
+  Serial.print("temperature:"); Serial.print(temperature);Serial.print("C");
+  Serial.print("  humidity:"); Serial.print(humidity);Serial.println(" %RH");
+
+  delay(1000);
+}
