@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <meta charset="UTF-8">
+        <title>CrispyFriedChicken</title>
+    </head>
+    <body>
+    <div class="header">
+        <h1><b>Green Thumb Plant Monitor</b></h1>
+    </div>
+    <div class="date">{{today}}</div>
+    <div class="column">
+        <div class="section">
+            <br>
+            <h2>Sensor Data</h2>
+            <p>Light Level:
+                <br><i>{{ light }}</i>
+            </p>
+            <p>Moisture Level:
+                <br><i>{{ soilMoisture }} %</i>
+            </p>
+            <p>Temperature:
+                <br><i>{{ temp }}&degF</i>
+            </p>
+            <p>Humidity:
+                <br><i>{{ humid }} % RH</i>
+            </p>
+            <br>
+        </div>
+        <div class="section">
+            <br><br>
+            <h2>Weather Information</h2>
+            <p>Today's Weather:
+                <br><i>{{weatherText}} {{weatherTemp}}&degF</i>
+            </p>
+            <p>Upcoming Weather:
+                <br><i>{{weather1Day}}&degF</i>
+                <br><i>{{weather2Day}}&degF</i>
+            </p>
+            <p>Probability of Watering in the Next 3 Days:
+                <br><i>{{avgTemp}}%</i>
+            </p>
+            <br><br>
+        </div>
+        <div class="section">
+            <br><br>
+            <h2>Plant Alerts</h2>
+            <p>Sunlight:
+                <br><i>{{lightFlag}}</i>
+            </p>
+            <p>Water:
+                <br><i>{{waterFlag}}</i>
+            </p>
+            <p>Temperature:
+                <br><i>{{tempFlag}}</i>
+            </p>
+            <br>
+            <br><br>
+        </div>
+    </div>
+    <div class="footer">
+        Last updated: {{day}} {{time}}
+        <p align="center"><a href="{{ url_for('refreshData') }}"" ><button class=grey style="height:65px;width:65px">
+            <span class="material-symbols-outlined">refresh</span></button></a></p>
+    </div>
+    </body>
+            <!-- <p>Light: {{ light }} </p>
+            <p>Moisture level: {{ soilMoisture }} %</p>
+            <p>Temperature: {{ temp }} F</p>
+            <p>Humidity: {{ humid }} %RH</p>
+            <p>Current weather conditions: {{weatherText}} {{weatherTemp}}F</p>
+            <p>Weather conditions one day from now: {{weather1Day}}F</p>
+            <p>Weather conditions two days from now: {{weather2Day}}F</p>
+            <p>The probability of watering is required in next 3 days: {{avgTemp}}%</p>
+            <p>{{lightFlag}}</p>
+            <p>{{waterFlag}}</p>
+            <p>{{tempFlag}}</p>
+        <h2>Last updated: {{day}} {{time}} </h2>
+        <p align="center"><a href="{{ url_for('refreshData') }}"" ><button class=grey style="height:65px;width:100px">Refresh</button></a></p> -->
+</html>
